@@ -11,7 +11,7 @@ class TodoList extends Component {
         this.changeInputValue = this.changeInputValue.bind(this)
         this.storeChange = this.storeChange.bind(this)
         store.subscribe(this.storeChange)
-        this.buttonClick = this.buttonClick.bind(this)
+        this.addClick = this.addClick.bind(this)
     }
 
     render() { 
@@ -25,14 +25,14 @@ class TodoList extends Component {
                     />
                     <Button 
                         type="primary"
-                        onClick = {this.buttonClick}
+                        onClick = {this.addClick}
                     >增加</Button>
                 </div>
                 <div style={{margin:'10px',width:'300px'}}>
                     <List
                         bordered
                         dataSource={this.state.list}
-                        renderItem={item=>(<List.Item>{item}</List.Item>)}
+                        renderItem={(item,index)=>(<List.Item onClick={this.deleteClick.bind(this, index)}>{item}</List.Item>)}
                     />    
                 </div>
             </div>
@@ -51,9 +51,17 @@ class TodoList extends Component {
         this.setState(store.getState())
     }
 
-    buttonClick(){
+    addClick(){
         const action = {
             type: 'add_item'
+        }
+        store.dispatch(action)
+    }
+
+    deleteClick(index){
+        const action = {
+            type: 'delete_item',
+            index
         }
         store.dispatch(action)
     }
