@@ -22,7 +22,7 @@ class ToDoListUi extends Component {
                 <List
                     bordered
                     dataSource={this.props.list}
-                    renderItem={(item,index)=>(<List.Item onClick={(index)=>this.props.deleteClick(index)}>{item}</List.Item>)}
+                    renderItem={(item,index)=>(<List.Item onClick={()=>this.props.deleteClick(index)}>{item}</List.Item>)}
                 />    
             </div>
         </div>
